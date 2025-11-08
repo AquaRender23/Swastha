@@ -1,0 +1,356 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>SWASTHA — Nearby Hospitals</title>
+
+<style>
+  :root {
+    --bg-start: #ffd9f0;
+    --bg-end: #e7e8ff;
+    --muted: #111;
+    --accent-purple: #6e43d6;
+    --accent-purple-2: #8b5cf6;
+    --blue-toggle: #6fb0e8;
+    --search-bg: #ffffff;
+    --map-bg: #d6c9ff;
+    --page-max: 1200px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { height: 100%; margin: 0; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    background: linear-gradient(120deg, var(--bg-start) 0%, var(--bg-end) 100%);
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 36px;
+    color: var(--muted);
+  }
+
+  .page {
+    width: min(var(--page-max), 96%);
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Header */
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+  }
+  .logo {
+    width: 72px;
+    height: 72px;
+    border-radius: 10px;
+    background: #f8afaf;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    flex-shrink: 0;
+  }
+  .logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+  .brand h2 {
+    margin: 0;
+    font-size: 40px;
+    font-weight: 700;
+  }
+  .profile {
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.75);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Layout */
+  .main {
+    display: flex;
+    gap: 34px;
+    align-items: flex-start;
+  }
+  .left-col {
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 18px;
+  }
+  .hospital-icon {
+    width: 180px;
+    height: 180px;
+    border-radius: 22px;
+    background: #cfcdfa;
+    box-shadow: 0 8px 22px rgba(0, 0, 0, 0.08);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+  }
+  .hospital-icon img {
+    width: 80%;
+    height: auto;
+    object-fit: contain;
+  }
+  .title {
+    font-family: "Comic Sans MS", "Bradley Hand", "Brush Script MT", "Segoe Script", sans-serif;
+    font-size: 76px;
+    line-height: 0.95;
+    margin: 0;
+    color: #0f0f0f;
+  }
+
+  /* Right column */
+  .right-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .features {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 26px;
+    line-height: 1.35;
+  }
+
+  /* Toggle */
+  .toggle-row {
+    display: flex;
+    justify-content: flex-end;
+  }
+  .toggle {
+    width: 96px;
+    height: 44px;
+    border-radius: 28px;
+    background: linear-gradient(180deg, var(--blue-toggle), #b16aeb);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 6px 10px;
+    color: white;
+    font-weight: 800;
+    box-shadow: 0 6px 14px rgba(0, 0, 0, 0.08);
+  }
+  .tick {
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.18);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  /* Manual location section */
+  .manual-location {
+    background: #fff;
+    border-radius: 16px;
+    padding: 16px 20px;
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 12px;
+  }
+
+  .manual-location label {
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  .manual-location input {
+    height: 48px;
+    border-radius: 14px;
+    border: 2px solid #ccc;
+    padding: 0 16px;
+    font-size: 18px;
+    outline: none;
+    transition: border-color 0.2s ease;
+  }
+
+  .manual-location input:focus {
+    border-color: var(--accent-purple);
+  }
+
+  .manual-location button {
+    height: 48px;
+    border-radius: 14px;
+    background: linear-gradient(180deg, var(--accent-purple-2), var(--accent-purple));
+    border: none;
+    color: white;
+    font-size: 18px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 6px 16px rgba(110, 67, 214, 0.18);
+  }
+
+  /* Search and map */
+  .search {
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .search-bar {
+    height: 56px;
+    border-radius: 18px;
+    background: var(--search-bg);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 0 18px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  }
+  .search-bar input {
+    border: none;
+    outline: none;
+    font-size: 20px;
+    width: 100%;
+    background: transparent;
+  }
+  .map {
+    height: 140px;
+    border-radius: 16px;
+    background: var(--map-bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.06);
+  }
+
+  .cta {
+    margin-top: 6px;
+    height: 72px;
+    border-radius: 28px;
+    background: linear-gradient(180deg, var(--accent-purple-2), var(--accent-purple));
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    font-weight: 700;
+    box-shadow: 0 10px 26px rgba(110, 67, 214, 0.18);
+    cursor: pointer;
+  }
+  .sub-caption {
+    text-align: center;
+    font-size: 20px;
+    color: var(--muted);
+    margin-top: 10px;
+  }
+
+  /* Responsive */
+  @media (max-width: 1200px) {
+    .title { font-size: 60px; }
+    .hospital-icon { width: 140px; height: 140px; }
+    .features { font-size: 22px; }
+    .cta { height: 64px; font-size: 26px; }
+  }
+</style>
+</head>
+<body>
+  <div class="page">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="brand">
+        <div class="logo">
+          <img src="/static/icons/logo.jpg" alt="SWASTHA logo">
+        </div>
+        <h2>SWASTHA</h2>
+      </div>
+      <div class="profile">
+        <svg viewBox="0 0 24 24" width="26" height="26" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="8" r="3" fill="#999"/>
+          <path d="M4 20c0-4 4-6 8-6s8 2 8 6" fill="#bbb"/>
+        </svg>
+      </div>
+    </header>
+
+    <!-- Main content -->
+    <section class="main">
+      <!-- Left -->
+      <div class="left-col">
+        <div class="hospital-icon">
+          <img src="/static/icons/hospital-icon.jpg" alt="Hospital icon">
+        </div>
+        <h1 class="title">Nearby<br>Hospitals</h1>
+      </div>
+
+      <!-- Right -->
+      <div class="right-col">
+        <div style="display:flex;gap:12px;align-items:flex-start;">
+          <div class="features">
+            
+            <div>Filters: emergency, open now, specialties, distance</div>
+            <div>One-tap call & directions</div>
+            
+            
+          </div>
+          <div class="toggle-row">
+            <div class="toggle">
+              <div>ON</div>
+              <div class="tick">
+                <svg viewBox="0 0 24 24" width="14" height="14" xmlns="http://www.w3.org/2000/svg">
+                  <path d="M20 6L9 17L4 12" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Manual location input -->
+        <div class="manual-location">
+          <label for="location-input">Enter your location manually:</label>
+          <input type="text" id="location-input" placeholder="Type your city or area name...">
+          <button>Use this location</button>
+        </div>
+
+        <!-- Search + Map + CTA -->
+        <div class="search">
+          <div class="search-bar">
+            <svg viewBox="0 0 24 24" width="22" height="22">
+              <path d="M21 21l-4.35-4.35" stroke="#999" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+              <circle cx="11" cy="11" r="6" stroke="#999" stroke-width="2" fill="none"/>
+            </svg>
+            <input type="search" placeholder="Search">
+          </div>
+
+          <div class="map">
+            <svg viewBox="0 0 400 140" xmlns="http://www.w3.org/2000/svg">
+              <rect x="0" y="0" width="400" height="140" rx="12" fill="#d6c9ff"/>
+              <path d="M20 30 L120 30 L180 80 L340 60" stroke="#fff" stroke-width="6" stroke-linecap="round" opacity="0.8"/>
+              <path d="M10 90 L70 90 L150 40 L300 80" stroke="#fff" stroke-width="5" stroke-linecap="round" opacity="0.75"/>
+              <g fill="#ff8db3">
+                <circle cx="60" cy="48" r="9"/>
+                <circle cx="210" cy="52" r="9"/>
+                <circle cx="320" cy="36" r="9"/>
+              </g>
+            </svg>
+          </div>
+
+          <div class="cta">Find Hospitals</div>
+          <div class="sub-caption">Find Hospitals</div>
+        </div>
+      </div>
+    </section>
+  </div>
+</body>
+</html>

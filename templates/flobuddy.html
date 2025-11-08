@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FloBuddy - Period Tracker</title>
+    <link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='flobuddy.css') }}">
+</head>
+<body>
+
+    <nav class="navbar">
+  <a href="{{ url_for('homepage') }}" class="home-icon-link" title="Home">
+    <!-- SVG Home icon -->
+    <svg width="50" height="50" viewBox="0 0 24 24" fill="none" style="vertical-align:middle">
+      <path d="M3 11.6L12 4l9 7.6M5 10.7V20a1 1 0 001 1h12a1 1 0 001-1v-9.3" stroke="#5639c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </a>
+</nav>  
+
+    <div class="flex-center-box">
+        <div class="container">
+            <!-- Branding & Hero: Left pane -->
+            <div class="left-pane">
+                
+                
+                <div class="hero-icon">💧</div>
+                <h1 class="flo-title">FloBuddy</h1>
+                <h2 class="subtitle">Track your periods</h2>
+                <p class="left-pane-desc">
+                    Keep track of your menstrual cycle with FloBuddy. Log your periods, monitor symptoms, and get personalized insights for better health management.
+                </p>
+            </div>
+            <!-- Log card: Right pane -->
+            <div class="right-pane">
+                <div class="period-log-card">
+                    <h2>Period Log</h2>
+                    <div class="log-btn-bar">
+                        <button class="btn-primary" id="showEntryBtn" onclick="showEntryForm()">New Entry</button>
+                        <button class="btn-primary" id="showListBtn" onclick="showEntries()">View Entries</button>
+                    </div>
+                    <div class="form-container" id="addForm" style="display:none;">
+                        <form onsubmit="addEntry(event)">
+                            <div class="form-grid">
+                                <div class="form-group">
+                                    <label>Start Date</label>
+                                    <input type="date" class="input-field" id="startDate" required>
+                                </div>
+                                <div class="form-group">
+                                    <label>End Date</label>
+                                    <input type="date" class="input-field" id="endDate">
+                                </div>
+                                <div class="form-group">
+                                    <label>Flow Intensity</label>
+                                    <select class="input-field" id="flowIntensity">
+                                        <option value="light">Light</option>
+                                        <option value="medium" selected>Medium</option>
+                                        <option value="heavy">Heavy</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>Notes</label>
+                                    <input type="text" class="input-field" id="notes" placeholder="Any symptoms or notes">
+                                </div>
+                            </div>
+                            <button type="submit" class="btn-primary">Save Entry</button>
+                        </form>
+                    </div>
+                    <div class="entries-list" id="entriesList" style="display:block;">
+                        <!-- Entries rendered here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="{{ url_for('static', filename='flobuddy.js') }}"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Swastha Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@600&family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    font-family: "Poppins", sans-serif;
+    background: linear-gradient(135deg, #8fd3f4, #f6d5f7, #ffd4b8);
+    background-size: 300% 300%;
+    animation: gradientBG 10s ease infinite;
+    min-height: 100vh;
+    width: 100vw;
+    overflow-x: hidden;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
+}
+@keyframes gradientBG {
+    0% {background-position: 0% 50%;}
+    50% {background-position: 100% 50%;}
+    100% {background-position: 0% 50%;}
+}
+.container {
+    background: rgba(255,255,255,0.47);
+    backdrop-filter: blur(18px);
+    padding: 30px 4vw 26px 4vw;
+    border-radius: 22px;
+    max-width: 420px;
+    width: 96vw;
+    min-width: 270px;
+    margin: 40px auto 36px auto;
+    text-align: center;
+    box-shadow: 0 0 25px rgba(0,0,0,0.13);
+    animation: pop 0.7s ease;
+    box-sizing: border-box;
+}
+@media (max-width: 480px) {
+  .container {
+    padding: 18px 3vw;
+    margin: 19px auto;
+    max-width: 99vw;
+    min-width: 0;
+  }
+}
+@keyframes pop {
+    0% {transform: scale(0.85); opacity: 0;}
+    100% {transform: scale(1); opacity: 1;}
+}
+.container img {
+    width: 94px;
+    margin-bottom: -8px;
+    filter: drop-shadow(0 0 14px rgba(150,250,255,0.7));
+    background: transparent;
+}
+h1 {
+    font-size: 2.5rem;
+    margin-bottom: 9px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-shadow: 0 0 8px rgba(200,255,245,0.6);
+}
+.swa { font-family: "Noto Sans Devanagari", serif; font-weight: 600; }
+p {
+    margin: 0 0 18px;
+    opacity: 0.87;
+    font-size: 15px;
+}
+input {
+    width: 100%;
+    margin: 10px 0;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    outline: none;
+    background: rgba(255,255,255,0.82);
+    font-size: 15px;
+}
+button {
+    width: 100%;
+    padding: 12px;
+    border-radius: 12px;
+    border: none;
+    background: #6ea8ff;
+    color: white;
+    font-size: 18px;
+    cursor: pointer;
+    transition: 0.3s;
+    margin-top: 7px;
+}
+button:hover {
+    background: #4d91ff;
+}
+a {
+    display: block;
+    margin-top: 12px;
+    font-size: 14px;
+    text-decoration: none;
+    color: #0044aa;
+    transition: 0.3s;
+}
+a:hover { color: #001d5c; }
+</style>
+</head>
+<body>
+<div class="container">
+    <img src="/static/icons/logo.png" alt="Swastha Logo">
+    <h1><span class="swa">स्व</span>stha</h1>
+    <p>Login to your account</p>
+    <form method="POST" action="/login">
+        <input type="email" name="email" placeholder="Enter Gmail / Email" required>
+        <input type="password" name="password" placeholder="Enter Password" required>
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>
+    <a href="/register">Don't have an account? Register</a>
+</div>
+</body>
+</html>

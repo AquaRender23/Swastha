@@ -1,0 +1,219 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Emergency Email — Clean Laptop Version</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='emergency_email.css') }}">
+  <link href="https://fonts.googleapis.com/css2?family=Patrick+Hand&family=Inter:wght@300;400;600&display=swap"
+    rel="stylesheet">
+
+  <style>
+    :root {
+      --page-padding: 28px;
+      --card-width: 1150px;
+      --card-pad: 40px;
+      --icon-size: 110px;
+      --inner-icon-pad: 0.86;
+
+      --title-size: 84px;
+      --subtitle-size: 26px;
+      --text-size: 22px;
+
+      --bg-start: #f6cfff;
+      --bg-end: #dbe6ff;
+      --accent-purple: #8b46ff;
+      --accent-red: #ff4d6d;
+      --text: #0b0b0b;
+      --muted: #333;
+    }
+
+    html,
+    body {
+      height: 100%;
+      margin: 0;
+      font-family: "Inter", sans-serif;
+      background: linear-gradient(135deg, var(--bg-start), var(--bg-end));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: var(--page-padding);
+      box-sizing: border-box;
+    }
+
+    .card {
+      width: var(--card-width);
+      max-width: calc(100% - var(--page-padding) * 2);
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 36px;
+      align-items: start;
+      padding: var(--card-pad);
+      position: relative;
+      box-sizing: border-box;
+    }
+
+    .icon-wrap {
+      width: var(--icon-size);
+      height: var(--icon-size);
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 26px rgba(14, 14, 20, 0.08);
+    }
+
+    .icon-inner {
+      width: calc(var(--icon-size) * var(--inner-icon-pad));
+      height: calc(var(--icon-size) * var(--inner-icon-pad));
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(180deg, #eec7ff, #c99eff);
+    }
+
+    .icon-inner svg {
+      width: 70%;
+      height: auto;
+    }
+
+    .content {
+      min-width: 0;
+    }
+
+    h1 {
+      margin: 0 0 12px 0;
+      font-family: "Patrick Hand", cursive;
+      font-size: var(--title-size);
+      line-height: 0.9;
+    }
+
+    p.lead {
+      margin: 0 0 20px 0;
+      font-size: var(--subtitle-size);
+      color: var(--muted);
+      max-width: 900px;
+      font-weight: 300;
+    }
+
+    .features {
+      margin-top: 16px;
+      padding-left: 30px;
+      list-style: disc;
+      font-size: var(--text-size);
+      color: var(--text);
+      line-height: 1.55;
+    }
+
+    .features li {
+      margin: 12px 0;
+    }
+
+    /* BUTTON ROW */
+    .btn-row {
+      display: flex;
+      gap: 18px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+    }
+
+    .cta {
+      padding: 14px 22px;
+      border-radius: 12px;
+      font-weight: 600;
+      text-decoration: none;
+      font-size: 20px;
+      color: #fff;
+      display: inline-block;
+    }
+
+    .cta.email {
+      background: var(--accent-purple);
+    }
+
+    .cta.email:hover {
+      background: #6e2fff;
+    }
+
+    .cta.sos {
+      background: var(--accent-red);
+    }
+
+    .cta.sos:hover {
+      background: #d93655;
+    }
+
+    @media (max-width: 820px) {
+      .card {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        padding: 24px;
+      }
+
+      h1 {
+        font-size: 58px;
+      }
+
+      p.lead {
+        font-size: 20px;
+      }
+
+      .features {
+        font-size: 18px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <a href="{{ url_for('homepage') }}" class="home-icon-link" title="Home">
+  <svg width="44" height="44" viewBox="0 0 24 24" fill="none">
+    <path d="M3 11.6L12 4l9 7.6M5 10.7V20a1 1 0 001 1h12a1 1 0 001-1v-9.3" stroke="#5639c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</a>
+
+
+
+  <main class="card" role="main">
+
+    <div class="icon-wrap">
+      <div class="icon-inner">
+        <svg viewBox="0 0 64 64">
+          <rect x="8" y="14" width="48" height="36" rx="4" fill="#fff" opacity="0.95" />
+          <path d="M8 14 L32 36 L56 14" fill="none" stroke="#f2eaff" stroke-width="2.8" />
+          <path d="M56 50 L8 50 L32 28 Z" fill="#fbf8ff" />
+        </svg>
+      </div>
+    </div>
+
+    <section class="content">
+      <h1>Emergency<br>Email</h1>
+      <p class="lead">
+        Send a pre-filled emergency email instantly — includes your name, contact, and location so help can arrive
+        faster.
+      </p>
+
+      <ul class="features">
+        <li>One-tap access from the app</li>
+        <li>Auto-includes GPS or typed location</li>
+        <li>Minimal UI — fast during emergencies</li>
+      </ul>
+
+      <div class="btn-row">
+        <a href="{{ url_for('setup_emergency_email') }}" class="cta email">Set up Emergency Email</a>
+        <form action="{{ url_for('send_emergency_email') }}" method="post" style="display:inline;">
+          <button type="submit" class="cta sos">SOS Alert</button>
+        </form>
+      </div>
+
+
+    </section>
+
+  </main>
+
+</body>
+
+</html>

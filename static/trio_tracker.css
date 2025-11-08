@@ -1,0 +1,277 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100vh;
+    overflow: hidden;
+    font-family: 'Montserrat', 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(120deg, #eaf4fd 0%, #fad8ec 100%);
+}
+
+.trio-container {
+    max-width: 1200px;
+    margin: 20px auto;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 28px;
+    box-shadow: 0 6px 26px rgba(177, 140, 252, 0.09);
+    padding: 32px;
+    height: calc(100vh - 40px);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Header */
+.trio-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    margin-bottom: 32px;
+}
+
+.trio-logo {
+    flex-shrink: 0;
+}
+
+.trio-header-content {
+    text-align: center;
+}
+
+h1 {
+    font-size: 38px;
+    font-weight: 900;
+    color: #232323;
+    margin-bottom: 5px;
+}
+
+.trio-subtitle {
+    font-size: 16px;
+    color: #232323;
+    opacity: 0.85;
+    line-height: 1.4;
+}
+
+/* Main Content */
+.trio-main {
+    display: flex;
+    gap: 100px;
+    flex: 1;
+    overflow: hidden;
+}
+
+/* Summary Cards */
+.trio-summary {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    min-width: 160px;
+}
+
+.trio-card {
+    background: white;
+    border-radius: 18px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 2px 9px rgba(154, 153, 250, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+}
+
+.trio-card.water { background: #e6f6ff; }
+.trio-card.sleep { background: #ece7ff; }
+.trio-card.meds { background: #ffd8eb; }
+
+.trio-icon {
+    font-size: 28px;
+}
+
+.trio-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #232323;
+}
+
+.trio-detail {
+    font-size: 13px;
+    font-weight: 600;
+    color: #232323;
+    opacity: 0.7;
+}
+
+/* Trackers */
+.trio-trackers {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+    justify-content: center;
+}
+
+.trio-tracker {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tracker-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.tracker-icon {
+    font-size: 20px;
+    width: 32px;
+    text-align: center;
+}
+
+.tracker-title {
+    font-size: 16px;
+    font-weight: 800;
+    color: #232323;
+    min-width: 70px;
+}
+
+.tracker-bar-container {
+    flex: 1;
+    max-width: 400px;
+    height: 14px;
+    background: rgba(242, 242, 253, 0.6);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+.tracker-bar {
+    height: 100%;
+    border-radius: 10px;
+    transition: width 0.3s ease;
+}
+
+.tracker-bar.water { background: #79bdfc; }
+.tracker-bar.sleep { background: #b5a7fa; }
+.tracker-bar.meds { background: #fd90c2; }
+
+.tracker-value {
+    font-size: 14px;
+    font-weight: 700;
+    color: #232323;
+    min-width: 150px;
+}
+
+.tracker-detail {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #555;
+    margin-left: 44px;
+}
+
+/* Buttons */
+.trio-btn {
+    font-size: 13px;
+    font-weight: 800;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 20px;
+    cursor: pointer;
+    color: white;
+    box-shadow: 0 2px 7px rgba(200, 186, 252, 0.1);
+    transition: all 0.2s ease;
+}
+
+.trio-btn.water { background: #79bdfc; }
+.trio-btn.sleep { background: #b5a7fa; }
+.trio-btn.meds { background: #fd90c2; }
+
+.trio-btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(200, 186, 252, 0.2);
+    filter: brightness(1.05);
+}
+
+.trio-btn:active {
+    transform: translateY(0);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .trio-main {
+        flex-direction: column;
+        gap: 24px;
+    }
+    
+    .trio-summary {
+        flex-direction: row;
+        min-width: auto;
+        justify-content: center;
+    }
+    
+    .tracker-bar-container {
+        max-width: 200px;
+    }
+    
+    .tracker-value {
+        min-width: auto;
+        font-size: 12px;
+    }
+}
+
+
+.trio-summary-col {
+    margin-top: 0;          /* Remove extra top space */
+    gap: 12px;
+}
+
+/* Optional: Reduce card height and padding for a tighter fit */
+.trio-card {
+    min-height: 85px;
+    padding: 10px 8px;
+}
+.trio-main-flex {
+    align-items: flex-start;  /* Ensures left and right align at the top */
+}
+
+.trio-main-flex {
+    align-items: flex-start !important;  /* Top-align left and right sections */
+}
+
+.trio-summary-col {
+    margin-top: -14px !important;       /* Try negative margin, or reduce this value for perfect fit */
+}
+
+.navbar {
+  width: 100%;
+  padding: 15px 38px 0 38px;
+  background: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+}
+
+.home-icon-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 4px;
+  transition: background 0.2s;
+}
+
+.home-icon-link:hover {
+  background: #f3e9ff;
+}
+.main-page-content {
+  margin-top: 52px;
+}

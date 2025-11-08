@@ -1,0 +1,117 @@
+body {
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  background: linear-gradient(120deg, #eaf4fd 0%, #fad8ec 100%);
+  font-family: 'Montserrat', Arial, sans-serif;
+}
+
+.sia-container {
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 48px;
+  max-width: 1200px;
+  margin: 60px auto;
+}
+
+.sia-left {
+  flex: 1 1 390px;
+  max-width: 480px;
+}
+
+.sia-left h1 {
+  font-size: 68px;
+  font-weight: 700;
+  color: #232323;
+  margin-bottom: 0.09em;
+  margin-top: 0;
+}
+
+.sia-left h2 {
+  font-size: 34px;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 26px;
+  color: #232323;
+}
+
+.sia-left p {
+  font-size: 22px;
+  color: #232323;
+  margin-top: 12px;
+  margin-bottom: 0;
+  line-height: 1.5;
+}
+
+.sia-right {
+  flex: 0 0 430px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+}
+
+.sia-chat-box {
+  width: 340px;
+  height: 270px;
+  background: #ffd1e5;
+  border-radius: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 26px;
+  box-shadow: 0 6px 32px rgba(180,70,140,0.11);
+}
+
+.sia-chat-graphic {
+  width: 206px;
+  height: 206px;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.sia-chat-btn {
+  background: #cbbafc;
+  color: #fff;
+  border: none;
+  border-radius: 40px;
+  font-size: 36px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  box-shadow: 0 6px 36px rgba(155, 132, 201, 0.19);
+  padding: 0.6em 2em 0.6em 2em;
+  cursor: pointer;
+  margin-top: 16px;
+  transition: background 0.23s, transform 0.10s;
+  min-width: 320px;
+}
+.sia-chat-btn:hover {
+  background: #a98ad6;
+  transform: scale(1.05);
+}
+
+@media (max-width: 1000px) {
+  .sia-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 32px;
+    padding: 12vw 0;
+    margin: 0 auto;
+  }
+  .sia-left, .sia-right {
+    width: 96vw;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    max-width: 95vw;
+  }
+  .sia-left h1 { font-size: 40px; }
+  .sia-left h2 { font-size: 22px; }
+  .sia-left p { font-size: 16px; }
+  .sia-chat-box { width: 220px; height: 135px; }
+  .sia-chat-graphic { width: 95px; height: 95px; }
+  .sia-chat-btn { font-size: 19px; min-width: 120px; }
+}

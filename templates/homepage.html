@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <title>SWASTHA Homepage</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    html,
+    body {
+      height: 100%;
+      width: 100%;
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      overflow: hidden;
+    }
+
+    body {
+      background: linear-gradient(120deg, #b1eefc 0%, #fbb5f5 40%, #edabfd 80%, #92edf7 100%);
+      font-family: "Comic Sans MS", "Bradley Hand", "Brush Script MT", "Segoe Script", sans-serif;
+    }
+
+    .homepage-container {
+      width: 100%;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Header */
+    .header-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 18px 36px 0 42px;
+    }
+
+    .logo-title {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+
+    .logo-img {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      background: #fff;
+    }
+
+    .header-title {
+      font-size: 2.3rem;
+      font-weight: bold;
+      color: #181818;
+      letter-spacing: 1.5px;
+    }
+
+    .user-icon {
+      width: 80px;
+      height: 80px;
+      border-radius: 50%;
+      background: #ede7f3;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+      color: #b38bcc;
+    }
+
+    /* Main layout */
+    .main-grid {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 25px;
+      flex: 1;
+      padding: 5px 40px 15px 40px;
+    }
+
+    /* SIA card */
+    .sia-card,
+    .feature-card {
+      cursor: pointer;
+      text-decoration: none;
+      color: inherit;
+      user-select: none;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      transition: box-shadow 0.3s ease;
+    }
+
+    .sia-card {
+      width: 270px;
+      height: 440px;
+      background: linear-gradient(120deg, #fd87d4 70%, #f894eb 100%);
+      border: 3px solid #1e1e25;
+      border-radius: 35px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      box-shadow: 0 3px 22px #e7d6e4a0;
+      padding: 20px 10px 14px 10px;
+    }
+
+    .sia-icon-top {
+      width: 80px;
+      height: auto;
+      background: #ffe0f3;
+      border-radius: 18px;
+      margin-bottom: 8px;
+      object-fit: contain;
+    }
+
+    .sia-title {
+      font-size: 2.2rem;
+      font-weight: bold;
+      color: #151728;
+      text-align: center;
+      margin: 4px 0;
+    }
+
+    .sia-sub {
+      font-size: 1rem;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .sia-img {
+      width: 160px;
+      height: 160px;
+      object-fit: cover;
+      border-radius: 16px;
+      background: #fff;
+      margin-top: 15px;
+      box-shadow: 0 4px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Right feature grid */
+    .right-cards-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: 1fr 1fr;
+      gap: 20px 24px;
+      width: 560px;
+      height: 440px;
+      justify-items: center;
+      align-items: center;
+    }
+
+    /* Feature cards */
+    .feature-card {
+      width: 250px;
+      height: 170px;
+      border-radius: 28px;
+      border: 3px solid #171618;
+      box-shadow: 0 2px 10px #cabefd85;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 12px;
+    }
+
+    .feature-card.blue {
+      background: linear-gradient(120deg, #afc7fe 90%, #d3e6fd 130%);
+    }
+
+    .feature-card.purple {
+      background: linear-gradient(120deg, #efa0ff 85%, #e7e6fc 120%);
+    }
+
+    .feature-card.pink {
+      background: linear-gradient(120deg, #f591ca 70%, #fda9dc 125%);
+    }
+
+    .feature-icon {
+      width: 80px;
+      height: 80px;
+      object-fit: contain;
+      margin-bottom: 6px;
+    }
+
+    .feature-label {
+      font-size: 1.5rem;
+      color: #161618;
+      font-weight: bold;
+      text-align: center;
+      line-height: 1.2em;
+      margin: 0;
+    }
+
+    .feature-sublabel {
+      font-size: 0.95rem;
+      color: #292743;
+      text-align: center;
+      margin-top: 3px;
+      font-weight: 400;
+    }
+
+    .sia-card:hover,
+    .feature-card:hover {
+      box-shadow: 0 8px 30px rgba(42, 10, 56, 0.6);
+    }
+
+    .logout-btn {
+      position: absolute;
+      top: 16px;
+      /* moves it more up */
+      right: 32px;
+      /* adjust as needed */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 56px;
+      /* less wide = square look */
+      height: 56px;
+      background: #f6efff;
+      border: 2px solid #b7aaff;
+      border-radius: 12px;
+      font-size: 1.04rem;
+      font-weight: 700;
+      color: #5639c9;
+      box-shadow: 0 1px 9px #d6c9ff26;
+      text-decoration: none;
+      transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+      cursor: pointer;
+    }
+
+    .logout-btn:hover {
+      background: #e7d6ff;
+      color: #2d266e;
+      box-shadow: 0 4px 18px #e3d2ff58;
+    }
+
+
+    @media (max-height: 750px) {
+
+      .sia-card,
+      .right-cards-grid {
+        height: 400px;
+      }
+
+      .feature-card {
+        height: 160px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="homepage-container">
+    <div class="header-row">
+      <div class="logo-title">
+        <img src="/static/icons/swastha-logo.jpg" class="logo-img" alt="Swastha logo" />
+        <span class="header-title">SWASTHA</span>
+      </div>
+
+      <a href="{{ url_for('login') }}" class="logout-btn" title="Log out">
+        Logout
+      </a>
+    </div>
+
+    <div class="main-grid">
+      <!-- Left: SIA clickable -->
+      <a href="{{ url_for('chatbot') }}" class="sia-card">
+        <img src="/static/icons/Sia-heart2.jpg" class="sia-icon-top" alt="heart icon" />
+        <div class="sia-title">SIA</div>
+        <div class="sia-sub">Swastha Intelligent Assistant</div>
+        <img src="/static/icons/SIA-robo.jpg" class="sia-img" alt="robot" />
+      </a>
+
+      <!-- Feature cards right grid -->
+      <div class="right-cards-grid">
+        <a href="{{ url_for('emergency_email') }}" class="feature-card purple">
+          <img src="/static/icons/Emergency-mail.jpg" alt="Emergency email" class="feature-icon" />
+          <div class="feature-label">Emergency<br />email</div>
+        </a>
+
+        <a href="{{ url_for('nearby_hospitals') }}" class="feature-card blue">
+          <img src="/static/icons/Nearby-Hospitals.jpg" alt="Nearby Hospitals" class="feature-icon" />
+          <div class="feature-label">Nearby<br />Hospitals</div>
+        </a>
+
+        <a href="{{ url_for('flobuddy') }}" class="feature-card blue">
+          <img src="/static/icons/FloBuddy.jpg" alt="FloBuddy" class="feature-icon" />
+          <div class="feature-label">FloBuddy</div>
+          <div class="feature-sublabel">track your periods</div>
+        </a>
+
+        <a href="{{ url_for('trio_tracker') }}" class="feature-card pink">
+          <img src="/static/icons/Trio-Tracker.jpg" alt="Trio Tracker" class="feature-icon" />
+          <div class="feature-label">Trio Tracker</div>
+          <div class="feature-sublabel">H2O, sleep, meds</div>
+        </a>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

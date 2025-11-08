@@ -1,0 +1,18 @@
+.home-icon-link {
+  position: fixed;
+  top: 22px;
+  right: 34px;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border-radius: 12px;
+  padding: 6px;
+  transition: background 0.18s;
+  text-decoration: none;
+}
+
+.home-icon-link:hover {
+  background: #efe2ff;
+}

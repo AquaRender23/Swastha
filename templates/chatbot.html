@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SIA | Swastha Intelligent Assistant</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap');
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #f8e1f4, #e5e2fc, #d6f9eb);
+  background-size: 200% 200%;
+  animation: bgShift 10s ease-in-out infinite alternate;
+  color: #222;
+  padding: 30px;
+}
+
+@keyframes bgShift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+.container {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+  max-width: 1000px;
+}
+
+/* Left Text Section */
+.text-box {
+  flex: 1 1 400px;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.text-box h1 {
+  font-size: 2.6rem;
+  font-weight: 700;
+  color: #111;
+  margin-bottom: 5px;
+}
+.text-box h2 {
+  font-size: 1.3rem;
+  color: #222;
+  font-weight: 600;
+  margin-bottom: 20px;
+}
+.text-box p {
+  font-size: 1.05rem;
+  line-height: 1.6;
+  color: #333;
+  margin-bottom: 26px;
+  /* Added margin-bottom to avoid overlap */
+}
+
+/* Right SIA Card */
+.sia-card {
+  background: linear-gradient(180deg, #ffbad9, #ff9cc4);
+  border-radius: 25px;
+  width: 250px;
+  height: 250px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+  animation: float 6s ease-in-out infinite alternate;
+  border: 1.5px solid rgba(0, 0, 0, 0.1);
+}
+
+@keyframes float {
+  from { transform: translateY(0); }
+  to { transform: translateY(-10px); }
+}
+
+/* Image inside the pink card */
+.sia-card img {
+  width: 90%;
+  height: 100%;
+  border-radius: 20px;
+  object-fit: contain;
+}
+
+/* Button */
+.chat-btn {
+  background: #b8a9f8;
+  color: #fff;
+  border: none;
+  border-radius: 30px;
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  margin-top: 10px;
+  margin-bottom: 0;
+  width: 100%;
+  max-width: 260px;
+  white-space: normal;
+  text-align: center;
+  display: block;
+}
+.chat-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(123, 104, 238, 0.35);
+}
+
+
+/* Responsive */
+@media (max-width: 850px) {
+  .container {
+    flex-direction: column;
+    text-align: center;
+  }
+  .text-box {
+    align-items: center;
+    max-width: 98vw;
+    width: 100%;
+  }
+  .chat-btn {
+    width: 90%;
+    max-width: 350px;
+    font-size: 1.1rem;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <div class="text-box">
+    <h1>SIA</h1>
+    <h2>Swastha Intelligent Assistant</h2>
+    <p>
+      SIA is your personal digital health assistant, offering personalized advice
+      and instant answers to all your health and wellness questions. With intelligent
+      insights and an easy-to-use chat interface, SIA helps you make informed
+      decisions for a healthier life.
+    </p>
+    <a href="{{ url_for('chatbot_chat') }}" class="chat-btn">Chat with SIA</a>
+  </div>
+
+  <div class="sia-card">
+    <img src="/static/icons/chatbot.png" alt="SIA Illustration">
+  </div>
+</div>
+
+</body>
+</html>

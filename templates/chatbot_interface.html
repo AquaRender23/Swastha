@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Chat with SIA</title>
+<style>
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap");
+*{margin:0;padding:0;box-sizing:border-box;font-family:"Poppins",sans-serif;}
+
+body{
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#f8e1f4,#e5e2fc,#d6f9eb);
+  background-size:200% 200%;
+  animation:bgShift 10s ease-in-out infinite alternate;
+}
+@keyframes bgShift{0%{background-position:0% 50%;}100%{background-position:100% 50%;}}
+
+.chat-box{
+  width:95%;
+  max-width:480px;
+  height:90vh;
+  background:rgba(255,255,255,0.35);
+  backdrop-filter:blur(16px);
+  border-radius:24px;
+  box-shadow:0 8px 30px rgba(0,0,0,.15);
+  display:flex;
+  flex-direction:column;
+  overflow:hidden;
+}
+
+/* header */
+.header{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:16px 20px;
+  background:linear-gradient(90deg,#b9a9f8,#ffb6c1);
+  color:#fff;
+  font-weight:600;
+  font-size:1.1rem;
+}
+.header img{
+  width:38px;height:38px;border-radius:50%;background:#fff;padding:4px;
+}
+
+/* chat area */
+.messages{
+  flex:1;
+  padding:18px;
+  overflow-y:auto;
+  display:flex;
+  flex-direction:column;
+  gap:10px;
+}
+.messages::-webkit-scrollbar{width:6px;}
+.messages::-webkit-scrollbar-thumb{background:#c8b7f9;border-radius:3px;}
+
+.msg{
+  max-width:75%;
+  padding:10px 14px;
+  border-radius:18px;
+  line-height:1.4;
+  animation:fadeIn .3s ease;
+}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
+.sia{align-self:flex-start;background:#fff;}
+.user{align-self:flex-end;background:linear-gradient(45deg,#7b68ee,#59c4a8);color:#fff;}
+
+/* input area */
+.input-area{
+  display:flex;
+  padding:14px 16px;
+  background:rgba(255,255,255,0.45);
+  border-top:1px solid rgba(0,0,0,0.1);
+}
+.input-area input{
+  flex:1;
+  border:none;
+  outline:none;
+  padding:12px 14px;
+  border-radius:22px;
+  background:#fff;
+  font-size:1rem;
+}
+.input-area button{
+  margin-left:10px;
+  width:46px;height:46px;
+  border:none;
+  border-radius:50%;
+  background:linear-gradient(45deg,#7b68ee,#59c4a8);
+  color:#fff;
+  font-size:1.2rem;
+  cursor:pointer;
+  transition:transform .2s;
+}
+.input-area button:hover{transform:scale(1.05);}
+</style>
+</head>
+<body>
+
+<div class="chat-box">
+  <div class="header">
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712043.png" alt="SIA">
+    Chat with SIA
+  </div>
+
+  <div class="messages" id="messages">
+    <div class="msg sia">👋 Hi! I’m SIA — your health companion. How can I help you today?</div>
+  </div>
+
+  <div class="input-area">
+    <input type="text" id="userInput" placeholder="Type a message…" />
+    <button id="sendBtn">➤</button>
+  </div>
+</div>
+
+<script>
+const sendBtn=document.getElementById("sendBtn");
+const userInput=document.getElementById("userInput");
+const messages=document.getElementById("messages");
+
+function addMessage(sender,text){
+  const div=document.createElement("div");
+  div.classList.add("msg",sender);
+  div.textContent=text;
+  messages.appendChild(div);
+  messages.scrollTop=messages.scrollHeight;
+}
+
+function sendMessage(){
+  const text=userInput.value.trim();
+  if(!text) return;
+  addMessage("user",text);
+  userInput.value="";
+  setTimeout(()=>{
+    addMessage("sia","💜 SIA: That's noted! I'll help you with that shortly.");
+  },600);
+}
+
+sendBtn.addEventListener("click",sendMessage);
+userInput.addEventListener("keypress",e=>{
+  if(e.key==="Enter")sendMessage();
+});
+</script>
+<script src="{{ url_for('static', filename='chatbot.js') }}"></script>
+</body>
+</html>
