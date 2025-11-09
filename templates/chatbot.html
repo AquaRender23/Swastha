@@ -120,6 +120,24 @@ body {
   box-shadow: 0 6px 15px rgba(123, 104, 238, 0.35);
 }
 
+.home-icon-link {
+  position: fixed;
+  top: 22px;
+  right: 34px;
+  z-index: 2000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: none;
+  border-radius: 12px;
+  padding: 6px;
+  transition: background 0.18s;
+  text-decoration: none;
+}
+
+.home-icon-link:hover {
+  background: #efe2ff;
+}
 
 /* Responsive */
 @media (max-width: 850px) {
@@ -141,6 +159,11 @@ body {
 </style>
 </head>
 <body>
+  <a href="{{ url_for('homepage') }}" class="home-icon-link" title="Home">
+  <svg width="44" height="44" viewBox="0 0 24 24" fill="none">
+    <path d="M3 11.6L12 4l9 7.6M5 10.7V20a1 1 0 001 1h12a1 1 0 001-1v-9.3" stroke="#5639c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
+</a>
 
 <div class="container">
   <div class="text-box">
@@ -149,7 +172,7 @@ body {
     <p>
       SIA is your personal digital health assistant, offering personalized advice
       and instant answers to all your health and wellness questions. With intelligent
-      insights and an easy-to-use chat interface, SIA helps you make informed
+      insights and an easy-to-use chat interface, SIA helps you make
       decisions for a healthier life.
     </p>
     <a href="{{ url_for('chatbot_chat') }}" class="chat-btn">Chat with SIA</a>

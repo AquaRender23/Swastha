@@ -68,7 +68,7 @@ def setup_emergency_email():
         emails = [request.form.get(f'email{i}') for i in range(1, 5)]
         session['emergency_emails'] = emails
         flash("Emergency contacts updated.", "success")
-        return redirect(url_for('landing'))
+        return redirect(url_for('homepage'))
     existing_emails = session.get('emergency_emails', ["", "", "", ""])
     return render_template('setup_emergency_email.html', emails=existing_emails)
 
@@ -159,6 +159,7 @@ def login():
 # Gemini API Chatbot (POST)
 @app.route('/chat', methods=['POST'])
 def chat():
+    import re
     data = request.get_json()
     question = data.get('question')
     if not question:
@@ -185,6 +186,12 @@ def chat():
             .get('parts', [{}])[0]
             .get('text', 'Sorry, no answer from Gemini.')
         )
+
+        answer = answer.replace('**', '')
+        answer = re.sub(r'(\d+\.)\s*', r'\n\1 ', answer)
+        answer = re.sub(r'(\-)\s*', r'\n\1 ', answer)
+        answer = answer.strip()
+
         return jsonify({'answer': answer})
     except Exception as e:
         print("Gemini API error:", e)

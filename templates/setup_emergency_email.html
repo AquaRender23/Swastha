@@ -264,9 +264,7 @@
 <body>
   <main class="card" role="main" aria-labelledby="page-title">
     <div class="brand" aria-hidden="false">
-      <!-- Ensure logo.png is in same folder -->
-      <img src="logo.png" alt="Swastha logo">
-      <!-- small gap (6px) so name appears close to logo -->
+
       <h1 id="page-title"><span class="swa">स्व</span><span class="stha">stha</span></h1>
     </div>
 
@@ -274,36 +272,33 @@
 
     <form class="contacts" action="{{ url_for('setup_emergency_email') }}" method="post">
       <div class="field">
-        <label class="small" for="email1">Primary contact (email)</label>
-        <input id="email1" name="email1" type="email" placeholder="example.family@gmail.com" required>
+        <label class="small" for="email1">Contact 1 (email)</label>
+        <input id="email1" name="email1" type="email" placeholder="example@gmail.com" required>
       </div>
 
       <div class="field">
         <label class="small" for="email2">Contact 2 (email)</label>
-        <input id="email2" name="email2" type="email" placeholder="example.friend@gmail.com" required>
+        <input id="email2" name="email2" type="email" placeholder="example@gmail.com" required>
       </div>
 
       <div class="field">
         <label class="small" for="email3">Contact 3 (email)</label>
-        <input id="email3" name="email3" type="email" placeholder="example.neighbour@gmail.com" required>
+        <input id="email3" name="email3" type="email" placeholder="example@gmail.com" required>
       </div>
 
       <div class="field">
         <label class="small" for="email4">Contact 4 (email)</label>
-        <input id="email4" name="email4" type="email" placeholder="example.colleague@gmail.com" required>
+        <input id="email4" name="email4" type="email" placeholder="example@gmail.com" required>
       </div>
 
       <form class="contacts" action="{{ url_for('setup_emergency_email') }}" method="post">
         <!-- form fields for emails here -->
         <div class="actions">
-          <button type="submit" class="btn-primary">Submit Contacts</button>
+          <button type="submit" class="btn-primary" onclick="window.location.href='{{ url_for('homepage') }}'">Submit</button>
           <button type="button" class="btn-ghost" onclick="window.location.href='{{ url_for('homepage') }}'">Back</button>
         </div>
       </form>
 
-
-      <div class="note">Make sure your contacts are people you trust. We send only emergency alerts — not repeated
-        messages.</div>
     </form>
   </main>
 
