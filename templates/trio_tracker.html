@@ -1,113 +1,120 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Trio Tracker</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='trio_tracker.css') }}">
 </head>
+
 <body>
     <nav class="navbar">
-  <a href="{{ url_for('homepage') }}" class="home-icon-link" title="Home">
-    <!-- SVG Home icon -->
-    <svg width="50" height="50" viewBox="0 0 24 24" fill="none" style="vertical-align:middle">
-      <path d="M3 11.6L12 4l9 7.6M5 10.7V20a1 1 0 001 1h12a1 1 0 001-1v-9.3" stroke="#5639c9" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
-  </a>
-</nav>  
-
-<div class="trio-container">
-    <div class="trio-header">
-        <div class="trio-logo">
-            <svg width="52" height="52" viewBox="0 0 80 80">
-                <rect width="80" height="80" rx="18" fill="#fdc3e2"/>
-                <circle cx="40" cy="38" r="18" fill="none" stroke="#fff" stroke-width="5"/>
-                <circle cx="24.5" cy="55.5" r="10" fill="none" stroke="#fff" stroke-width="5"/>
-                <circle cx="55.5" cy="55.5" r="10" fill="none" stroke="#fff" stroke-width="5"/>
+        <a href="{{ url_for('homepage') }}" class="home-icon-link" title="Home">
+            <!-- SVG Home icon -->
+            <svg width="50" height="50" viewBox="0 0 24 24" fill="none" style="vertical-align:middle">
+                <path d="M3 11.6L12 4l9 7.6M5 10.7V20a1 1 0 001 1h12a1 1 0 001-1v-9.3" stroke="#5639c9" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
             </svg>
+        </a>
+    </nav>
+
+    <div class="trio-container">
+        <div class="trio-header">
+            <div class="trio-logo">
+                <svg width="52" height="52" viewBox="0 0 80 80">
+                    <rect width="80" height="80" rx="18" fill="#fdc3e2" />
+                    <circle cx="40" cy="38" r="18" fill="none" stroke="#fff" stroke-width="5" />
+                    <circle cx="24.5" cy="55.5" r="10" fill="none" stroke="#fff" stroke-width="5" />
+                    <circle cx="55.5" cy="55.5" r="10" fill="none" stroke="#fff" stroke-width="5" />
+                </svg>
+            </div>
+            <div class="trio-header-content">
+                <h1>Trio Tracker</h1>
+                <p class="trio-subtitle">Keep your hydration, sleep schedule, and medication routine on track — all in
+                    one place.</p>
+            </div>
         </div>
-        <div class="trio-header-content">
-            <h1>Trio Tracker</h1>
-            <p class="trio-subtitle">Keep your hydration, sleep schedule, and medication routine on track — all in one place.</p>
+
+
+        <div class="trio-main">
+            <!-- Summary Cards -->
+            <div class="trio-summary">
+                <div class="trio-card water">
+                    <span class="trio-icon">💧</span>
+                    <span class="trio-title">Water</span>
+                    <span class="trio-detail">{{ water_taken }}/{{ water_goal }} glasses</span>
+                </div>
+                <div class="trio-card sleep">
+                    <span class="trio-icon">🛌</span>
+                    <span class="trio-title">Sleep</span>
+                    <span class="trio-detail">{{ sleep_hours }}/{{ sleep_goal }} hours</span>
+                </div>
+                <div class="trio-card meds">
+                    <span class="trio-icon">💊</span>
+                    <span class="trio-title">Meds</span>
+                    <span class="trio-detail">{{ meds_taken }}/{{ meds_goal }} doses</span>
+                </div>
+            </div>
+
+            <!-- Tracker Bars -->
+            <div class="trio-trackers">
+                <!-- Water -->
+                <div class="trio-tracker">
+                    <div class="tracker-row">
+                        <span class="tracker-icon">💧</span>
+                        <span class="tracker-title">Water</span>
+                        <div class="tracker-bar-container">
+                            <div class="tracker-bar water" style="width: {{ (water_taken / water_goal * 100) }}%"></div>
+                        </div>
+                        <span class="tracker-value">{{ water_taken }} cups</span>
+                    </div>
+                    <div class="tracker-detail">
+                        <span>Reminder at {{ water_reminder }}</span>
+                        <form method="post" action="{{ url_for('log_water') }}" style="display:inline">
+                            <button class="trio-btn water" type="submit">Log</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Sleep -->
+                <div class="trio-tracker">
+                    <div class="tracker-row">
+                        <span class="tracker-icon">🛌</span>
+                        <span class="tracker-title">Sleep</span>
+                        <div class="tracker-bar-container">
+                            <div class="tracker-bar sleep" style="width: {{ (sleep_hours / sleep_goal * 100) }}%"></div>
+                        </div>
+                        <span class="tracker-value">{{ sleep_hours }} hours</span>
+                    </div>
+                    <div class="tracker-detail">
+                        <span>Reminder at {{ sleep_reminder }}</span>
+                        <form method="post" action="{{ url_for('add_sleep') }}" style="display:inline">
+                            <button class="trio-btn sleep" type="submit">Add</button>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Meds -->
+                <div class="trio-tracker">
+                    <div class="tracker-row">
+                        <span class="tracker-icon">💊</span>
+                        <span class="tracker-title">Meds</span>
+                        <div class="tracker-bar-container">
+                            <div class="tracker-bar meds" style="width: {{ (meds_taken / meds_goal * 100) }}%"></div>
+                        </div>
+                        <span class="tracker-value">{{ meds_goal - meds_taken }} remaining</span>
+                    </div>
+                    <div class="tracker-detail">
+                        <form method="post" action="{{ url_for('mark_meds') }}" style="display:inline">
+                            <button class="trio-btn meds" type="submit">Taken</button>
+                        </form>
+                        
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div class="trio-main">
-        <!-- Summary Cards -->
-        <div class="trio-summary">
-            <div class="trio-card water">
-                <span class="trio-icon">💧</span>
-                <span class="trio-title">Water</span>
-                <span class="trio-detail">{{ water_taken }}/{{ water_goal }} glasses</span>
-            </div>
-            <div class="trio-card sleep">
-                <span class="trio-icon">🛌</span>
-                <span class="trio-title">Sleep</span>
-                <span class="trio-detail">{{ sleep_hours }}/{{ sleep_goal }} hours</span>
-            </div>
-            <div class="trio-card meds">
-                <span class="trio-icon">💊</span>
-                <span class="trio-title">Meds</span>
-                <span class="trio-detail">{{ meds_taken }}/{{ meds_goal }} doses</span>
-            </div>
-        </div>
-
-        <!-- Tracker Bars -->
-        <div class="trio-trackers">
-            <!-- Water -->
-            <div class="trio-tracker">
-                <div class="tracker-row">
-                    <span class="tracker-icon">💧</span>
-                    <span class="tracker-title">Water</span>
-                    <div class="tracker-bar-container">
-                        <div class="tracker-bar water" style="width: {{ (water_taken / water_goal * 100) }}%"></div>
-                    </div>
-                    <span class="tracker-value">{{ water_taken }} cups</span>
-                </div>
-                <div class="tracker-detail">
-                    <span>Reminder at {{ water_reminder }}</span>
-                    <form method="post" action="{{ url_for('log_water') }}" style="display:inline">
-                        <button class="trio-btn water" type="submit">Log</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Sleep -->
-            <div class="trio-tracker">
-                <div class="tracker-row">
-                    <span class="tracker-icon">🛌</span>
-                    <span class="tracker-title">Sleep</span>
-                    <div class="tracker-bar-container">
-                        <div class="tracker-bar sleep" style="width: {{ (sleep_hours / sleep_goal * 100) }}%"></div>
-                    </div>
-                    <span class="tracker-value">{{ sleep_hours }} hours</span>
-                </div>
-                <div class="tracker-detail">
-                    <span>Reminder at {{ sleep_reminder }}</span>
-                    <form method="post" action="{{ url_for('add_sleep') }}" style="display:inline">
-                        <button class="trio-btn sleep" type="submit">Add</button>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Meds -->
-            <div class="trio-tracker">
-                <div class="tracker-row">
-                    <span class="tracker-icon">💊</span>
-                    <span class="tracker-title">Meds</span>
-                    <div class="tracker-bar-container">
-                        <div class="tracker-bar meds" style="width: {{ (meds_taken / meds_goal * 100) }}%"></div>
-                    </div>
-                    <span class="tracker-value">{{ meds_goal - meds_taken }} remaining</span>
-                </div>
-                <div class="tracker-detail">
-                    <form method="post" action="{{ url_for('mark_meds') }}" style="display:inline">
-                        <button class="trio-btn meds" type="submit">Mark Taken</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 </body>
+
 </html>

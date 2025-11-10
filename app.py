@@ -77,12 +77,18 @@ def setup_emergency_email():
 @app.route('/send-emergency-email', methods=['POST'])
 def send_emergency_email():
     emails = session.get('emergency_emails', ["", "", "", ""])
+    user_id = session.get('user_id')
+    user = User.query.get(user_id)
+
     subject = "EMERGENCY ALERT - Immediate Attention Needed"
     message_body = "This is an emergency alert triggered from Swastha app. Please check on the sender immediately."
+    
     msg = EmailMessage()
-    msg['From'] = SENDER_EMAIL
+    msg['From'] = SENDER_EMAIL  
     msg['Subject'] = subject
+    msg['Reply-To'] = user.email if user else SENDER_EMAIL
     msg.set_content(message_body)
+
     try:
         with smtplib.SMTP_SSL('smtp.gmail.com', 465) as smtp:
             smtp.login(SENDER_EMAIL, SENDER_PASSWORD)
@@ -251,15 +257,21 @@ def mark_meds():
     tracker_state["meds_taken"] = min(tracker_state["meds_taken"] + 1, tracker_state["meds_goal"])
     return redirect(url_for('trio_tracker'))
 
+@app.route('/reset_trio_tracker', methods=['POST'])
+def reset_trio_tracker():
+    tracker_state["water_taken"] = 0
+    tracker_state["sleep_hours"] = 0
+    tracker_state["meds_taken"] = 0
+    return redirect(url_for('trio_tracker'))
 
-#Nearby hospitals main page
-@app.route('/nearby_hospitals')
-def nearby_hospitals():
-    return render_template('nearby_hospitals.html')
-
-
-#Hospital search using Overpass API - AJAX POST endpoint
+#Nearby Hospital 
 def find_hospitals_osm(lat, lon, radius=5000):
+    try:
+        lat = float(lat)
+        lon = float(lon)
+    except (TypeError, ValueError):
+        return []
+
     query = f"""
     [out:json];
     (
@@ -280,18 +292,21 @@ def find_hospitals_osm(lat, lon, radius=5000):
         name = element['tags'].get('name', 'Unnamed hospital')
         # For ways/relations 'center' has lat/lon; for nodes use lat/lon directly
         if 'center' in element:
-            lat = element['center']['lat']
-            lon = element['center']['lon']
+            hlat = element['center']['lat']
+            hlon = element['center']['lon']
         else:
-            lat = element.get('lat')
-            lon = element.get('lon')
+            hlat = element.get('lat')
+            hlon = element.get('lon')
         hospitals.append({
             'name': name,
-            'latitude': lat,
-            'longitude': lon
+            'latitude': hlat,
+            'longitude': hlon
         })
     return hospitals
 
+@app.route('/nearby_hospitals')
+def nearby_hospitals():
+    return render_template('nearby_hospitals.html')
 
 @app.route('/search_hospitals', methods=['POST'])
 def search_hospitals():
@@ -299,8 +314,11 @@ def search_hospitals():
     lat = data.get('lat')
     lon = data.get('lon')
     radius = data.get('radius', 5000)
+    if lat is None or lon is None:
+        return jsonify({'error': 'No lat/lon provided'}), 400
     hospitals = find_hospitals_osm(lat, lon, radius)
     return jsonify(hospitals)
+
 
 
 #FloBuddy page
@@ -309,7 +327,7 @@ def flobuddy():
     return render_template('flobuddy.html')
 
 
-#Test route (optional)
+#Test route
 @app.route('/test')
 def test():
     return "Test page works!"
