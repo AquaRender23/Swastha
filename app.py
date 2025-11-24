@@ -78,7 +78,7 @@ def setup_emergency_email():
 def send_emergency_email():
     emails = session.get('emergency_emails', ["", "", "", ""])
     user_id = session.get('user_id')
-    user = User.query.get(user_id)
+    user = db.session.get(User, user_id)
 
     subject = "EMERGENCY ALERT - Immediate Attention Needed"
     message_body = "This is an emergency alert triggered from Swastha app. Please check on the sender immediately."
