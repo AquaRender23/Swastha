@@ -78,10 +78,7 @@ def setup_emergency_email():
 def send_emergency_email():
     emails = session.get('emergency_emails', ["", "", "", ""])
     user_id = session.get('user_id')
-    if not user_id:
-        flash("You must be logged in to send an emergency email.", "danger")
-        return redirect(url_for('login'))
-    user = db.session.get(User, user_id)
+    user = User.query.get(user_id)
 
     subject = "EMERGENCY ALERT - Immediate Attention Needed"
     message_body = "This is an emergency alert triggered from Swastha app. Please check on the sender immediately."
@@ -104,7 +101,6 @@ def send_emergency_email():
     except Exception as e:
         flash(f"Failed to send emails: {str(e)}", "danger")
     return redirect(url_for('emergency_email'))
-
 
 @app.route('/homepage')
 def homepage():
